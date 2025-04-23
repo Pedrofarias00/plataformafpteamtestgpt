@@ -1,0 +1,41 @@
+// Funções simples para navegação suave e interações
+
+// Scroll suave para ancoras
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Pequena animação de entrada dos elementos ao rolar a página
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+const sections = document.querySelectorAll('.section, .banner-content, .card, blockquote');
+
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+// Modo responsivo do menu para futura expansão (caso queira adicionar hamburguer menu)
+// Exemplo básico comentado para referência futura
+// const menuToggle = document.querySelector('.menu-toggle');
+// const navLinks = document.querySelector('.nav-links');
+
+// menuToggle.addEventListener('click', () => {
+//     navLinks.classList.toggle('active');
+// });
